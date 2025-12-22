@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MigraineChronicApp",
+    "name": "Chronic Migraine App",
     "slug": "MigraineChronicApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,10 +20,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.erickzg.MigraineChronicApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9dcc8e96-beca-4a7e-8163-9f10dbeb4413"
+      }
     }
   }
 }
