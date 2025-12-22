@@ -30,7 +30,7 @@ export default function PatientFormScreen() {
 
   const [birthDate, setBirthDate] = useState(
     patient?.birth_date || ''
-  ); // AAAA-MM-DD
+  ); // YYYY-MM-DD
   const [birthDateObj, setBirthDateObj] = useState(
     patient?.birth_date
       ? new Date(`${patient.birth_date}T00:00:00`)
@@ -65,7 +65,7 @@ export default function PatientFormScreen() {
       const year = selectedDate.getFullYear();
       const month = `${selectedDate.getMonth() + 1}`.padStart(2, '0');
       const day = `${selectedDate.getDate()}`.padStart(2, '0');
-      setBirthDate(`${year}-${month}-${day}`); // AAAA-MM-DD en hora local
+      setBirthDate(`${year}-${month}-${day}`); // YYYY-MM-DD local
     }
   };
 
@@ -74,24 +74,21 @@ export default function PatientFormScreen() {
 
     const errors = [];
 
-    // Nombres obligatorios
     if (!firstName.trim()) errors.push('El nombre es obligatorio.');
     if (!lastName.trim()) errors.push('Los apellidos son obligatorios.');
 
-    // DNI: exactamente 8 dígitos
     if (documentNumber.trim() !== '') {
       const doc = documentNumber.trim();
       const dniRegex = /^[0-9]{8}$/;
       if (!dniRegex.test(doc)) {
-        errors.push('El N° de documento debe tener exactamente 8 dígitos.');
+        errors.push('El nro de documento debe tener exactamente 8 digitos.');
       }
     }
 
-    // Fecha de nacimiento: válida, no futura, no >120 años
     if (birthDate) {
       const d = new Date(birthDate + 'T00:00:00');
       if (Number.isNaN(d.getTime())) {
-        errors.push('La fecha de nacimiento no es válida.');
+        errors.push('La fecha de nacimiento no es valida.');
       } else {
         const today = new Date();
         const todayMid = new Date(
@@ -108,53 +105,47 @@ export default function PatientFormScreen() {
           errors.push('La fecha de nacimiento no puede ser futura.');
         }
         if (d < oldest) {
-          errors.push(
-            'La fecha de nacimiento es demasiado antigua (más de 120 años).'
-          );
+          errors.push('La fecha de nacimiento es demasiado antigua (mas de 120 anos).');
         }
       }
     }
 
-    // Peso (kg): 1–400
     let weightNum = null;
     if (weight.trim() !== '') {
       weightNum = Number(weight);
       if (Number.isNaN(weightNum)) {
-        errors.push('El peso debe ser un número.');
+        errors.push('El peso debe ser un numero.');
       } else if (weightNum <= 0 || weightNum > 400) {
         errors.push('El peso debe estar entre 1 y 400 kg.');
       }
     }
 
-    // Talla (cm): 30–250
     let heightNum = null;
     if (height.trim() !== '') {
       heightNum = Number(height);
       if (Number.isNaN(heightNum)) {
-        errors.push('La talla debe ser un número.');
+        errors.push('La talla debe ser un numero.');
       } else if (heightNum < 30 || heightNum > 250) {
         errors.push('La talla debe estar entre 30 y 250 cm.');
       }
     }
 
-    // Email (formato básico)
     if (email.trim() !== '') {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email.trim())) {
-        errors.push('El correo electrónico no tiene un formato válido.');
+        errors.push('El correo electronico no tiene un formato valido.');
       }
     }
 
-    // Teléfono: exactamente 9 dígitos
     if (phone.trim() !== '') {
       const digits = phone.replace(/\D/g, '');
       if (!/^[0-9]{9}$/.test(digits)) {
-        errors.push('El teléfono debe tener exactamente 9 dígitos.');
+        errors.push('El telefono debe tener exactamente 9 digitos.');
       }
     }
 
     if (errors.length > 0) {
-      Alert.alert('Validación', errors.join('\n'));
+      Alert.alert('Validacion', errors.join('\n'));
       return;
     }
 
@@ -175,43 +166,40 @@ export default function PatientFormScreen() {
       setSaving(true);
       if (isEdit) {
         await updatePatient(patient.id, payload);
-        Alert.alert('Éxito', 'Paciente actualizado correctamente.', [
+        Alert.alert('Exito', 'Paciente actualizado correctamente.', [
           { text: 'OK', onPress: () => navigation.goBack() },
         ]);
       } else {
         await createPatient(payload);
-        Alert.alert('Éxito', 'Paciente creado correctamente.', [
+        Alert.alert('Exito', 'Paciente creado correctamente.', [
           { text: 'OK', onPress: () => navigation.goBack() },
         ]);
       }
     } catch (error) {
       console.error('Error saving patient', error);
-      Alert.alert('Error', 'Ocurrió un error al guardar el paciente.');
+      Alert.alert('Error', 'Ocurrio un error al guardar el paciente.');
     } finally {
       setSaving(false);
     }
   };
 
-function SexButton({ value, label }) {
-  return (
-    <TouchableOpacity
-      style={[
-        styles.sexButton,
-        sex === value && styles.sexButtonActive,
-      ]}
-      onPress={() => setSex(value)}
-    >
-      <Text
-        style={[
-          styles.sexButtonText,
-          sex === value && styles.sexButtonTextActive,
-        ]}
+  function SexButton({ value, label }) {
+    return (
+      <TouchableOpacity
+        style={[styles.sexButton, sex === value && styles.sexButtonActive]}
+        onPress={() => setSex(value)}
       >
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-}
+        <Text
+          style={[
+            styles.sexButtonText,
+            sex === value && styles.sexButtonTextActive,
+          ]}
+        >
+          {label}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
 
   return (
     <KeyboardAvoidingView
@@ -219,119 +207,120 @@ function SexButton({ value, label }) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={80}
     >
-    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-      <Text style={styles.sectionTitle}>Datos personales</Text>
+      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+        <Text style={styles.sectionTitle}>Datos personales</Text>
 
-      <Text style={styles.label}>N° Documento (DNI – 8 dígitos)</Text>
-      <TextInput
-        style={styles.input}
-        value={documentNumber}
-        onChangeText={setDocumentNumber}
-        placeholder="12345678"
-        keyboardType="numeric"
-      />
-
-      <Text style={styles.label}>Nombres *</Text>
-      <TextInput
-        style={styles.input}
-        value={firstName}
-        onChangeText={setFirstName}
-        placeholder="Nombres"
-      />
-
-      <Text style={styles.label}>Apellidos *</Text>
-      <TextInput
-        style={styles.input}
-        value={lastName}
-        onChangeText={setLastName}
-        placeholder="Apellidos"
-      />
-
-      <Text style={styles.label}>Fecha de nacimiento</Text>
-      <TouchableOpacity
-        style={styles.input}
-        onPress={() => setShowBirthDatePicker(true)}
-      >
-        <Text
-          style={
-            birthDate ? styles.dateText : styles.datePlaceholder
-          }
-        >
-          {birthDate || 'Selecciona fecha'}
-        </Text>
-      </TouchableOpacity>
-      {showBirthDatePicker && (
-        <DateTimePicker
-          value={birthDateObj}
-          mode="date"
-          display="default"
-          maximumDate={new Date()}
-          onChange={onChangeBirthDate}
+        <Text style={styles.label}>Nro Documento (DNI - 8 digitos)</Text>
+        <TextInput
+          style={styles.input}
+          value={documentNumber}
+          onChangeText={setDocumentNumber}
+          placeholder="12345678"
+          placeholderTextColor="#9ca3af"
+          keyboardType="numeric"
         />
-      )}
 
-      <Text style={styles.label}>Sexo</Text>
-      <View style={styles.sexRow}>
-        <SexButton value="F" label="Femenino" />
-        <SexButton value="M" label="Masculino" />
-        <SexButton value="O" label="Otro" />
-      </View>
-
-      <Text style={styles.label}>Peso (kg)</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        value={weight}
-        onChangeText={setWeight}
-        placeholder="Ej: 65"
-      />
-
-      <Text style={styles.label}>Talla (cm)</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        value={height}
-        onChangeText={setHeight}
-        placeholder="Ej: 165"
-      />
-
-      <Text style={styles.label}>Correo electrónico</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-        placeholder="ejemplo@correo.com"
-      />
-
-      <Text style={styles.label}>Teléfono (9 dígitos)</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="phone-pad"
-        value={phone}
-        onChangeText={setPhone}
-        placeholder="999123456"
-      />
-
-      <Text style={styles.label}>Notas</Text>
-      <TextInput
-        style={[styles.input, styles.textArea]}
-        multiline
-        numberOfLines={4}
-        value={notes}
-        onChangeText={setNotes}
-        placeholder="Comorbilidades, observaciones clínicas, etc."
-      />
-
-      <View style={styles.bottomSpacer}>
-        <Button
-          title={saving ? 'Guardando...' : 'Guardar paciente'}
-          onPress={handleSubmit}
-          disabled={saving}
+        <Text style={styles.label}>Nombres *</Text>
+        <TextInput
+          style={styles.input}
+          value={firstName}
+          onChangeText={setFirstName}
+          placeholder="Nombres"
+          placeholderTextColor="#9ca3af"
         />
-      </View>
-    </ScrollView>
+
+        <Text style={styles.label}>Apellidos *</Text>
+        <TextInput
+          style={styles.input}
+          value={lastName}
+          onChangeText={setLastName}
+          placeholder="Apellidos"
+          placeholderTextColor="#9ca3af"
+        />
+
+        <Text style={styles.label}>Fecha de nacimiento</Text>
+        <TouchableOpacity style={styles.input} onPress={() => setShowBirthDatePicker(true)}>
+          <Text style={birthDate ? styles.dateText : styles.datePlaceholder}>
+            {birthDate || 'Selecciona fecha'}
+          </Text>
+        </TouchableOpacity>
+        {showBirthDatePicker && (
+          <DateTimePicker
+            value={birthDateObj}
+            mode="date"
+            display="default"
+            maximumDate={new Date()}
+            onChange={onChangeBirthDate}
+          />
+        )}
+
+        <Text style={styles.label}>Sexo</Text>
+        <View style={styles.sexRow}>
+          <SexButton value="F" label="Femenino" />
+          <SexButton value="M" label="Masculino" />
+          <SexButton value="O" label="Otro" />
+        </View>
+
+        <Text style={styles.label}>Peso (kg)</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={weight}
+          onChangeText={setWeight}
+          placeholder="Ej: 65"
+          placeholderTextColor="#9ca3af"
+        />
+
+        <Text style={styles.label}>Talla (cm)</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={height}
+          onChangeText={setHeight}
+          placeholder="Ej: 165"
+          placeholderTextColor="#9ca3af"
+        />
+
+        <Text style={styles.label}>Correo electronico</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+          placeholder="ejemplo@correo.com"
+          placeholderTextColor="#9ca3af"
+        />
+
+        <Text style={styles.label}>Telefono (9 digitos)</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="phone-pad"
+          value={phone}
+          onChangeText={setPhone}
+          placeholder="999123456"
+          placeholderTextColor="#9ca3af"
+        />
+
+        <Text style={styles.label}>Notas</Text>
+        <TextInput
+          style={[styles.input, styles.textArea]}
+          multiline
+          numberOfLines={4}
+          value={notes}
+          onChangeText={setNotes}
+          placeholder="Comorbilidades, observaciones clinicas, etc."
+          placeholderTextColor="#9ca3af"
+        />
+
+        <View style={styles.bottomSpacer}>
+          <Button
+            title={saving ? 'Guardando...' : 'Guardar paciente'}
+            onPress={handleSubmit}
+            disabled={saving}
+          />
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
