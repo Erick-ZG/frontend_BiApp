@@ -12,6 +12,7 @@ import {
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { LineChart } from 'react-native-chart-kit';
 import { fetchKpiTrends, fetchPatientEvaluations } from '../api';
+import { theme } from '../theme';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -114,16 +115,16 @@ const getHistoryMonths = (entry) => {
 };
 
 const chartConfig = {
-  backgroundColor: '#ffffff',
-  backgroundGradientFrom: '#ffffff',
-  backgroundGradientTo: '#ffffff',
+  backgroundColor: theme.colors.card,
+  backgroundGradientFrom: theme.colors.card,
+  backgroundGradientTo: theme.colors.card,
   decimalPlaces: 0,
-  color: (opacity = 1) => `rgba(37, 99, 235, ${opacity})`,
-  labelColor: (opacity = 1) => `rgba(55, 65, 81, ${opacity})`,
+  color: (opacity = 1) => `rgba(249, 115, 22, ${opacity})`,
+  labelColor: (opacity = 1) => `rgba(139, 90, 60, ${opacity})`,
   propsForDots: {
     r: '4',
     strokeWidth: '2',
-    stroke: '#2563eb',
+    stroke: theme.colors.primary,
   },
 };
 
@@ -366,7 +367,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: theme.colors.border,
   },
   blockTitle: {
     fontWeight: 'bold',
@@ -375,7 +376,7 @@ const styles = StyleSheet.create({
   },
   helper: {
     fontSize: 12,
-    color: '#666',
+    color: theme.colors.muted,
     marginBottom: 6,
   },
   kpiSelectorRow: {
@@ -389,16 +390,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: '#cbd5f5',
-    backgroundColor: '#eef2ff',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.primarySoft,
   },
   kpiButtonActive: {
-    backgroundColor: '#2563eb',
-    borderColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
   },
   kpiButtonText: {
     fontSize: 12,
-    color: '#1f2937',
+    color: theme.colors.text,
   },
   kpiButtonTextActive: {
     color: '#fff',
@@ -414,13 +415,13 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   errorText: {
-    color: '#b91c1c',
+    color: theme.colors.danger,
     fontSize: 12,
   },
   tableHeader: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: theme.colors.border,
     paddingBottom: 4,
     marginBottom: 4,
   },
@@ -437,3 +438,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
+
+
+
+
+
+
+
+

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation, useFocusEffect } from '@react-navigation/native';
 import { fetchPatientEvaluations, deletePatient, deleteEvaluation } from '../api';
+import { theme } from '../theme';
 
 const formatLocalDate = (iso) => {
   if (!iso) return '';
@@ -35,7 +36,7 @@ export default function PatientDetailScreen() {
       list = [...list].sort((a, b) => {
         const da = a.evaluation_date ? new Date(a.evaluation_date) : 0;
         const db = b.evaluation_date ? new Date(b.evaluation_date) : 0;
-        return db - da; // descendente (mas reciente primero)
+        return db - da;
       });
       setEvaluations(list);
     } catch (error) {
@@ -81,7 +82,6 @@ export default function PatientDetailScreen() {
     );
   };
 
-  // Card de evaluacion con acciones
   const renderEvaluation = ({ item }) => {
     const dateLabel = formatLocalDate(item.evaluation_date);
     const doctorSummary =
@@ -147,13 +147,13 @@ export default function PatientDetailScreen() {
 
         <View style={styles.evalActions}>
           <TouchableOpacity
-            style={[styles.evalBtn, styles.evalBtnSecondary]}
+            style={[styles.evalBtn, styles.evalBtnPrimary]}
             onPress={() => navigation.navigate('NewEvaluation', { patient, evaluation: item })}
           >
-            <Text style={styles.evalBtnText}>{'\u270f\uFE0F'} Editar</Text>
+            <Text style={styles.evalBtnText}>Editar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.evalBtn, styles.evalBtnDanger]} onPress={handleDeleteEval}>
-            <Text style={styles.evalBtnText}>{'\u{1f5d1}'} Eliminar</Text>
+            <Text style={styles.evalBtnText}>Eliminar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -171,7 +171,6 @@ export default function PatientDetailScreen() {
         {patient.phone && <Text style={styles.subText}>{patient.phone}</Text>}
       </View>
 
-      {/* Botones de edicion / eliminacion */}
       <View style={styles.actionsRow}>
         <TouchableOpacity style={[styles.button, styles.buttonPrimary]} onPress={() => navigation.navigate('PatientForm', { patient })}>
           <Text style={styles.buttonText}>Editar paciente</Text>
@@ -182,17 +181,15 @@ export default function PatientDetailScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Nueva evaluacion */}
       <View style={styles.actionsRow}>
         <TouchableOpacity style={[styles.button, styles.buttonSecondary]} onPress={() => navigation.navigate('NewEvaluation', { patient })}>
-          <Text style={styles.buttonText}>+ Nueva evaluacion</Text>
+          <Text style={styles.buttonText}>Nueva evaluacion</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Boton: evolucion de KPIs */}
       <View style={styles.actionsRow}>
-        <TouchableOpacity style={[styles.button, styles.buttonAnalytics]} onPress={() => navigation.navigate('KpiTrend', { patient })}>
-          <Text style={styles.buttonText}>Ver evolucion de KPIs</Text>
+        <TouchableOpacity style={[styles.button, styles.buttonGhost]} onPress={() => navigation.navigate('KpiTrend', { patient })}>
+          <Text style={styles.buttonGhostText}>Ver evolucion de KPIs</Text>
         </TouchableOpacity>
       </View>
 
@@ -201,7 +198,7 @@ export default function PatientDetailScreen() {
       {loading ? (
         <View style={styles.center}>
           <ActivityIndicator size="large" />
-          <Text>Cargando evaluaciones...</Text>
+          <Text style={styles.mutedText}>Cargando evaluaciones...</Text>
         </View>
       ) : evaluations.length === 0 ? (
         <Text style={styles.emptyText}>Aun no hay evaluaciones registradas para este paciente.</Text>
@@ -213,93 +210,89 @@ export default function PatientDetailScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
+  container: { flex: 1, padding: theme.spacing.md, backgroundColor: theme.colors.bg },
   headerCard: {
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: '#f5f5f5',
-    marginBottom: 12,
+    padding: theme.spacing.md,
+    borderRadius: theme.radius.md,
+    backgroundColor: theme.colors.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    marginBottom: theme.spacing.md,
   },
-  name: { fontSize: 18, fontWeight: 'bold' },
-  subText: { fontSize: 13, color: '#555' },
+  name: { fontSize: 18, fontWeight: '800', color: theme.colors.text },
+  subText: { fontSize: 13, color: theme.colors.muted },
   actionsRow: {
     flexDirection: 'row',
-    gap: 8,
-    marginBottom: 8,
+    gap: theme.spacing.sm,
+    marginBottom: theme.spacing.sm,
   },
   button: {
     flex: 1,
-    paddingVertical: 8,
-    borderRadius: 8,
+    paddingVertical: 10,
+    borderRadius: theme.radius.md,
     alignItems: 'center',
   },
-  buttonPrimary: {
-    backgroundColor: '#2563eb',
+  buttonPrimary: { backgroundColor: theme.colors.primary },
+  buttonSecondary: { backgroundColor: theme.colors.accent },
+  buttonDanger: { backgroundColor: theme.colors.danger },
+  buttonGhost: {
+    backgroundColor: theme.colors.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
   },
-  buttonSecondary: {
-    backgroundColor: '#22c55e',
-  },
-  buttonDanger: {
-    backgroundColor: '#dc2626',
-  },
-  // color distinto para el boton de analisis
-  buttonAnalytics: {
-    backgroundColor: '#0ea5e9',
-  },
-  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
+  buttonText: { color: '#fff', fontWeight: '700', fontSize: 13 },
+  buttonGhostText: { color: theme.colors.text, fontWeight: '700', fontSize: 13 },
   sectionTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    marginTop: 8,
+    fontWeight: '800',
+    marginBottom: theme.spacing.sm,
+    marginTop: theme.spacing.sm,
+    color: theme.colors.text,
   },
   center: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 16,
+    marginTop: theme.spacing.md,
   },
+  mutedText: { color: theme.colors.muted, fontSize: 13 },
   evalCard: {
-    padding: 12,
-    borderRadius: 12,
+    padding: theme.spacing.md,
+    borderRadius: theme.radius.md,
     borderWidth: 1,
-    borderColor: '#fed7aa',
-    backgroundColor: '#fff7ed',
-    marginBottom: 12,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
+    marginBottom: theme.spacing.sm,
   },
   evalHeaderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
-    gap: 8,
+    marginBottom: theme.spacing.sm,
+    gap: theme.spacing.sm,
   },
-  evalTitle: { fontWeight: '900', marginBottom: 2, color: '#7c2d12' },
-  evalSub: { color: '#7c2d12', fontSize: 12 },
-  evalBody: { gap: 2, marginBottom: 10 },
-  evalLine: { color: '#5b3417', fontSize: 12 },
+  evalTitle: { fontWeight: '800', marginBottom: 2, color: theme.colors.text },
+  evalSub: { color: theme.colors.muted, fontSize: 12 },
+  evalBody: { gap: 2, marginBottom: theme.spacing.sm },
+  evalLine: { color: theme.colors.text, fontSize: 12 },
   evalActions: {
     flexDirection: 'row',
-    gap: 8,
+    gap: theme.spacing.sm,
   },
   evalBtn: {
     flex: 1,
     paddingVertical: 8,
-    borderRadius: 10,
+    borderRadius: theme.radius.md,
     alignItems: 'center',
   },
-  evalBtnSecondary: {
-    backgroundColor: '#fcd34d',
-  },
-  evalBtnDanger: {
-    backgroundColor: '#dc2626',
-  },
-  evalBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 12 },
+  evalBtnPrimary: { backgroundColor: theme.colors.primary },
+  evalBtnDanger: { backgroundColor: theme.colors.danger },
+  evalBtnText: { color: '#fff', fontWeight: '700', fontSize: 12 },
   chipAi: {
     paddingHorizontal: 10,
     paddingVertical: 6,
-    backgroundColor: '#f97316',
+    backgroundColor: theme.colors.primarySoft,
     borderRadius: 999,
   },
-  chipAiText: { color: '#fff', fontWeight: 'bold', fontSize: 12 },
-  emptyText: { marginTop: 8, color: '#555' },
+  chipAiText: { color: theme.colors.primary, fontWeight: '700', fontSize: 12 },
+  emptyText: { marginTop: theme.spacing.sm, color: theme.colors.muted },
 });

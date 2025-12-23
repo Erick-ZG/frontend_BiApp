@@ -9,13 +9,22 @@ import EvaluationFormScreen from './src/screens/EvaluationFormScreen';
 import PatientFormScreen from './src/screens/PatientFormScreen';
 import EvaluationDetailScreen from './src/screens/EvaluationDetailScreen';
 import KpiTrendScreen from './src/screens/KpiTrendScreen';
+import { theme } from './src/theme';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="PatientsList">
+      <Stack.Navigator
+        initialRouteName="PatientsList"
+        screenOptions={{
+          headerStyle: { backgroundColor: theme.colors.card },
+          headerTintColor: theme.colors.text,
+          headerTitleStyle: { fontWeight: '700' },
+          contentStyle: { backgroundColor: theme.colors.bg },
+        }}
+      >
         <Stack.Screen
           name="PatientsList"
           component={PatientsListScreen}
@@ -29,7 +38,7 @@ export default function App() {
         <Stack.Screen
           name="NewEvaluation"
           component={EvaluationFormScreen}
-          options={{ title: 'Nueva evaluación' }}
+          options={{ title: 'Nueva evaluacion' }}
         />
         <Stack.Screen
           name="PatientForm"
@@ -39,12 +48,12 @@ export default function App() {
         <Stack.Screen
           name="EvaluationDetail"
           component={EvaluationDetailScreen}
-          options={{ title: 'Análisis con IA' }}
+          options={{ title: 'Analisis con IA' }}
         />
         <Stack.Screen
           name="KpiTrend"
           component={KpiTrendScreen}
-          options={{ title: 'Evolución de KPIs' }}
+          options={{ title: 'Evolucion de KPIs' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

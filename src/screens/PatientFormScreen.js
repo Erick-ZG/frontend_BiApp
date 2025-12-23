@@ -15,6 +15,7 @@ import {
 import { useRoute, useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { createPatient, updatePatient } from '../api';
+import { theme } from '../theme';
 
 export default function PatientFormScreen() {
   const route = useRoute();
@@ -65,7 +66,7 @@ export default function PatientFormScreen() {
       const year = selectedDate.getFullYear();
       const month = `${selectedDate.getMonth() + 1}`.padStart(2, '0');
       const day = `${selectedDate.getDate()}`.padStart(2, '0');
-      setBirthDate(`${year}-${month}-${day}`); // YYYY-MM-DD local
+      setBirthDate(`${year}-${month}-${day}`);
     }
   };
 
@@ -327,31 +328,36 @@ export default function PatientFormScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: theme.spacing.md,
     paddingBottom: 120,
+    backgroundColor: theme.colors.bg,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 12,
+    fontWeight: '800',
+    marginBottom: theme.spacing.md,
+    color: theme.colors.text,
   },
   label: {
-    fontWeight: '500',
-    marginTop: 8,
+    fontWeight: '600',
+    marginTop: theme.spacing.sm,
+    color: theme.colors.text,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
-    paddingHorizontal: 8,
+    borderColor: theme.colors.border,
+    borderRadius: theme.radius.sm,
+    paddingHorizontal: 10,
     paddingVertical: 10,
-    marginTop: 4,
+    marginTop: 6,
+    backgroundColor: theme.colors.card,
+    color: theme.colors.text,
   },
   dateText: {
-    color: '#111',
+    color: theme.colors.text,
   },
   datePlaceholder: {
-    color: '#999',
+    color: theme.colors.muted,
   },
   textArea: {
     height: 90,
@@ -359,29 +365,30 @@ const styles = StyleSheet.create({
   },
   sexRow: {
     flexDirection: 'row',
-    gap: 8,
+    gap: theme.spacing.sm,
     marginTop: 4,
-    marginBottom: 8,
+    marginBottom: theme.spacing.sm,
   },
   sexButton: {
     flex: 1,
     paddingVertical: 6,
-    borderRadius: 6,
+    borderRadius: theme.radius.sm,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: theme.colors.border,
     alignItems: 'center',
+    backgroundColor: theme.colors.card,
   },
   sexButtonActive: {
-    backgroundColor: '#2563eb',
-    borderColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
   },
   sexButtonText: {
-    color: '#333',
+    color: theme.colors.text,
     fontSize: 13,
   },
   sexButtonTextActive: {
     color: '#fff',
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
-  bottomSpacer: { marginTop: 12, marginBottom: 40 },
+  bottomSpacer: { marginTop: theme.spacing.md, marginBottom: 40 },
 });

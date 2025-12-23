@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { fetchAiDiagnoses, runAiForEvaluation, selectAiDiagnosis } from '../api';
+import { theme } from '../theme';
 
 const formatLocalDate = (val) => {
   if (!val) return '';
@@ -279,8 +280,8 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
-    backgroundColor: '#fff',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
     elevation: 1,
   },
   blockTitle: {
@@ -291,10 +292,10 @@ const styles = StyleSheet.create({
   line: {
     fontSize: 13,
     marginBottom: 2,
-    color: '#111827',
+    color: theme.colors.text,
   },
   runButton: {
-    backgroundColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',
@@ -314,7 +315,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     marginTop: 8,
-    color: '#b91c1c',
+    color: theme.colors.danger,
     fontSize: 12,
   },
   aiCard: {
@@ -322,12 +323,12 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
-    backgroundColor: '#f8fafc',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
   },
   aiCardSelected: {
-    borderColor: '#2563eb',
-    backgroundColor: '#e0f2fe',
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.primarySoft,
   },
   aiCardEmpty: {
     marginBottom: 16,
@@ -336,7 +337,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'dashed',
     borderColor: '#cbd5f5',
-    backgroundColor: '#f9fafb',
+    backgroundColor: theme.colors.card,
   },
   aiHeader: {
     flexDirection: 'row',
@@ -347,39 +348,39 @@ const styles = StyleSheet.create({
   aiLabel: {
     fontWeight: 'bold',
     marginBottom: 6,
-    color: '#0f172a',
+    color: theme.colors.text,
   },
   aiSubLabel: {
     fontSize: 12,
-    color: '#555',
+    color: theme.colors.muted,
     marginBottom: 4,
   },
   aiEmptyText: {
     fontSize: 13,
-    color: '#555',
+    color: theme.colors.muted,
   },
   aiResponseBox: {
     borderWidth: 1,
     borderColor: '#e5e7eb',
     borderRadius: 6,
     padding: 8,
-    backgroundColor: '#f9fafb',
+    backgroundColor: theme.colors.card,
     marginBottom: 8,
   },
-  aiText: { color: '#111827' },
+  aiText: { color: theme.colors.text },
   selectButton: {
     paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#2563eb',
+    borderColor: theme.colors.primary,
     alignItems: 'center',
   },
   selectButtonActive: {
-    backgroundColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
   },
   selectButtonText: {
     fontSize: 12,
-    color: '#2563eb',
+    color: theme.colors.primary,
     fontWeight: 'bold',
   },
   selectButtonTextActive: {
@@ -388,7 +389,7 @@ const styles = StyleSheet.create({
   badge: {
     paddingHorizontal: 8,
     paddingVertical: 4,
-    backgroundColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
     color: '#fff',
     borderRadius: 999,
     fontSize: 11,
@@ -396,8 +397,14 @@ const styles = StyleSheet.create({
   },
   sectionLabel: {
     fontWeight: '900',
-    color: '#0f172a',
+    color: theme.colors.text,
     marginBottom: 2,
     fontSize: 13,
   },
 });
+
+
+
+
+
+

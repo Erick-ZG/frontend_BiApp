@@ -16,6 +16,7 @@ import {
 import { useRoute, useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { fetchKpisForMigraine, createEvaluation, updateEvaluation } from '../api';
+import { theme } from '../theme';
 
 // -------------------- opciones chips --------------------
 const TRI_STATE_OPTIONS = [
@@ -555,6 +556,7 @@ export default function EvaluationFormScreen() {
                           value={value !== undefined && value !== null ? String(value) : ''}
                           onChangeText={(text) => handleChangeKpiValue(kpi.id, kpi.type, text)}
                           placeholder={(kpi.type === 'integer' || kpi.type === 'float') ? 'Ingrese un valor' : 'Ingrese texto'}
+                          placeholderTextColor="#9ca3af"
                         />
                       </View>
                     );
@@ -582,6 +584,7 @@ export default function EvaluationFormScreen() {
           value={progressPercent}
           onChangeText={setProgressPercent}
           placeholder="Ej: 60"
+          placeholderTextColor="#9ca3af"
         />
 
         <Text style={styles.label}>Notas del médico</Text>
@@ -591,7 +594,8 @@ export default function EvaluationFormScreen() {
           numberOfLines={4}
           value={doctorNotes}
           onChangeText={setDoctorNotes}
-          placeholder="Comentarios clínicos, tratamiento, etc."
+          placeholder="Comentarios clinicos, tratamiento, etc."
+          placeholderTextColor="#9ca3af"
         />
       </View>
 
@@ -605,13 +609,13 @@ export default function EvaluationFormScreen() {
   );
 }
 
-const ORANGE = '#f97316';
+const ORANGE = theme.colors.primary;
 
 const styles = StyleSheet.create({
   container: {
     padding: 16,
     paddingBottom: 26,
-    backgroundColor: '#f6f7fb',
+    backgroundColor: theme.colors.bg,
   },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 8 },
 
@@ -623,8 +627,8 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#ffffff',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
     ...Platform.select({
       android: { elevation: 1 },
       ios: {
@@ -642,12 +646,12 @@ const styles = StyleSheet.create({
 
   input: {
     borderWidth: 1,
-    borderColor: '#d1d5db',
+    borderColor: theme.colors.border,
     borderRadius: 12,
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginTop: 6,
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.card,
   },
   textArea: { height: 90, textAlignVertical: 'top' },
 
@@ -668,8 +672,8 @@ const styles = StyleSheet.create({
     marginTop: 12,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#eef2f7',
-    backgroundColor: '#fafafa',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
     overflow: 'hidden',
   },
   groupHeader: {
@@ -678,9 +682,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff7ed',
+    backgroundColor: theme.colors.primarySoft,
     borderBottomWidth: 1,
-    borderBottomColor: '#fde68a',
+    borderBottomColor: theme.colors.border,
   },
   groupTitle: { fontWeight: '900', fontSize: 13, color: ORANGE },
   groupSubtitle: { marginTop: 2, fontSize: 11, color: '#6b7280' },
@@ -692,8 +696,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#f1f5f9',
-    backgroundColor: '#fafafa',
+    borderBottomColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
   },
 
   diagLabel: { color: '#111827', fontWeight: '900' },
@@ -705,8 +709,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: '#fed7aa',
-    backgroundColor: '#fff7ed',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.primarySoft,
   },
   chipActive: { backgroundColor: ORANGE, borderColor: ORANGE },
   chipText: { fontSize: 12, color: '#7c2d12', fontWeight: '700' },
@@ -718,12 +722,18 @@ const styles = StyleSheet.create({
     marginBottom: 18,
     paddingVertical: 12,
     borderRadius: 14,
-    backgroundColor: '#111827',
+    backgroundColor: theme.colors.primary,
     alignItems: 'center',
   },
   primaryBtnDisabled: { opacity: 0.6 },
   primaryBtnText: { color: '#fff', fontWeight: '900' },
 });
+
+
+
+
+
+
 
 
 
