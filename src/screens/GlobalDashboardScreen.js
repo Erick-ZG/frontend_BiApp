@@ -1,4 +1,4 @@
-// src/screens/GlobalDashboardScreen.js
+﻿// src/screens/GlobalDashboardScreen.js
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   View,
@@ -46,40 +46,40 @@ const LABELS = {
   evaluations_count: 'Evaluaciones registradas',
   evaluations_total: 'Evaluaciones registradas',
   total_evaluations: 'Evaluaciones registradas',
-  avg_migraine_days: 'Promedio de d\u00edas con migra\u00f1a',
-  migraine_days_avg: 'Promedio de d\u00edas con migra\u00f1a',
-  avg_headache_days: 'Promedio de d\u00edas con cefalea',
-  headache_days_avg: 'Promedio de d\u00edas con cefalea',
+  avg_migraine_days: 'Promedio de días con migraña',
+  migraine_days_avg: 'Promedio de días con migraña',
+  avg_headache_days: 'Promedio de días con cefalea',
+  headache_days_avg: 'Promedio de días con cefalea',
   avg_midas: 'Promedio MIDAS',
   midas_avg: 'Promedio MIDAS',
   avg_pain_intensity: 'Promedio de intensidad del dolor',
   pain_intensity_avg: 'Promedio de intensidad del dolor',
   severity_avg: 'Promedio de severidad',
   avg_severity: 'Promedio de severidad',
-  acute_med_days_avg: 'Promedio de d\u00edas de medicaci\u00f3n aguda',
-  avg_acute_med_days: 'Promedio de d\u00edas de medicaci\u00f3n aguda',
-  acute_medication_days_avg: 'Promedio de d\u00edas de medicaci\u00f3n aguda',
-  chronic_migraine_rate: 'Tasa de migra\u00f1a cr\u00f3nica',
-  with_disease: 'Con migra\u00f1a cr\u00f3nica',
-  without_disease: 'Sin migra\u00f1a cr\u00f3nica',
-  migraine_days: 'D\u00edas con migra\u00f1a',
-  headache_days: 'D\u00edas con cefalea',
-  midas_histogram: 'Distribuci\u00f3n MIDAS',
-  acute_medication_types: 'Tipos de medicaci\u00f3n aguda',
-  acute_med_types: 'Tipos de medicaci\u00f3n aguda',
-  sex_distribution: 'Distribuci\u00f3n por sexo',
-  age_distribution: 'Distribuci\u00f3n por edad',
-  bmi_distribution: 'Distribuci\u00f3n por IMC',
-  alert_migraine_days: 'Alerta de d\u00edas con migra\u00f1a',
-  alert_acute_med_days: 'Alerta de medicaci\u00f3n aguda',
+  acute_med_days_avg: 'Promedio de días de medicación aguda',
+  avg_acute_med_days: 'Promedio de días de medicación aguda',
+  acute_medication_days_avg: 'Promedio de días de medicación aguda',
+  chronic_migraine_rate: 'Tasa de migraña crónica',
+  with_disease: 'Con migraña crónica',
+  without_disease: 'Sin migraña crónica',
+  migraine_days: 'Días con migraña',
+  headache_days: 'Días con cefalea',
+  midas_histogram: 'Distribución MIDAS',
+  acute_medication_types: 'Tipos de medicación aguda',
+  acute_med_types: 'Tipos de medicación aguda',
+  sex_distribution: 'Distribución por sexo',
+  age_distribution: 'Distribución por edad',
+  bmi_distribution: 'Distribución por IMC',
+  alert_migraine_days: 'Alerta de días con migraña',
+  alert_acute_med_days: 'Alerta de medicación aguda',
   alertas: 'Alertas',
 };
 
 const ACUTE_MED_LABELS = {
-  NSAID_ANALGESICS: 'AINE/Analg\u00e9sicos',
+  NSAID_ANALGESICS: 'AINE/Analgésicos',
   ERGOT: 'Ergot',
   TRIPTANS: 'Triptanes',
-  COMBINATION_ANALGESICS: 'Analg\u00e9sicos combinados',
+  COMBINATION_ANALGESICS: 'Analgésicos combinados',
   OTHER: 'Otros',
 };
 
@@ -217,15 +217,15 @@ const SEX_OPTIONS = [
 
 const DISEASE_OPTIONS = [
   { label: 'Todos', value: '' },
-  { label: 'S\u00ed', value: '1' },
+  { label: 'Sï¿½', value: '1' },
   { label: 'No', value: '0' },
 ];
 
 const RANGE_OPTIONS = [
-  { label: 'U\u00faltimos 30 d\u00edas', value: '30' },
-  { label: 'U\u00faltimos 90 d\u00edas', value: '90' },
-  { label: 'U\u00faltimos 180 d\u00edas', value: '180' },
-  { label: '\u00daltimo a\u00f1o', value: '365' },
+  { label: 'Últimos 30 días', value: '30' },
+  { label: 'Últimos 90 días', value: '90' },
+  { label: 'Últimos 180 días', value: '180' },
+  { label: 'Último año', value: '365' },
   { label: 'Todo', value: 'all' },
 ];
 
@@ -363,7 +363,7 @@ export default function GlobalDashboardScreen() {
       <View style={styles.hero}>
         <Text style={styles.heroTitle}>{'Dashboard global'}</Text>
         <Text style={styles.heroSubtitle}>
-          {'Resumen cl\u00ednico y tendencias del servicio'}
+          {'Resumen clínico y tendencias del servicio'}
         </Text>
       </View>
 
@@ -446,7 +446,7 @@ export default function GlobalDashboardScreen() {
                 { data: chartData.migraine, color: () => theme.colors.primary, strokeWidth: 2 },
                 { data: chartData.headache, color: () => theme.colors.accent, strokeWidth: 2 },
               ],
-              legend: ['Migra\u00f1a', 'Cefalea'],
+              legend: ['Migraña', 'Cefalea'],
             }}
             width={chartWidth}
             height={220}
@@ -466,7 +466,7 @@ export default function GlobalDashboardScreen() {
             bezier
             style={styles.chart}
           />
-          <Text style={styles.chartNote}>{'Promedio mensual de d\u00edas con migra\u00f1a y cefalea.'}</Text>
+          <Text style={styles.chartNote}>{'Promedio mensual de días con migraña y cefalea.'}</Text>
           {chartData.labels.length < 2 ? (
             <Text style={styles.chartNote}>{'Solo hay un mes con datos, por eso ves un solo punto.'}</Text>
           ) : null}
@@ -481,7 +481,7 @@ export default function GlobalDashboardScreen() {
             <ActivityIndicator size="small" />
           </View>
         ) : distributions.length === 0 ? (
-          <Text style={styles.mutedText}>{'Sin datos de distribuci\u00f3n.'}</Text>
+          <Text style={styles.mutedText}>{'Sin datos de distribuciï¿½n.'}</Text>
         ) : (
           distributions.map(([key, value]) => {
             const itemsBase = normalizeItems(value);
@@ -546,12 +546,12 @@ export default function GlobalDashboardScreen() {
                       <View key={`${key}-${idx}`} style={styles.alertRow}>
                         <View style={styles.alertHeader}>
                           <Text style={styles.alertTitle}>{row.patientName || 'Paciente'}</Text>
-                          <Text style={styles.alertMeta}>{`Evaluaci\u00f3n #${row.evaluationId || '-'}`}</Text>
+                          <Text style={styles.alertMeta}>{`Evaluación #${row.evaluationId || '-'}`}</Text>
                         </View>
                         <Text style={styles.alertMeta}>{row.evaluationDate || ''}</Text>
                         <View style={styles.alertNumbers}>
                           <View style={styles.alertChip}>
-                            <Text style={styles.alertChipLabel}>{'Migra\u00f1a'}</Text>
+                            <Text style={styles.alertChipLabel}>{'Migraña'}</Text>
                             <Text style={styles.alertChipValue}>{row.headacheDurationMonths ? `${row.migraineDays || '-'} | ${row.headacheDurationMonths} m` : String(row.migraineDays || '-') }</Text>
                           </View>
                           <View style={styles.alertChip}>
@@ -675,6 +675,8 @@ const styles = StyleSheet.create({
   alertChipLabel: { fontSize: 11, color: theme.colors.muted, flexShrink: 1 },
   alertChipValue: { fontWeight: '700', color: theme.colors.text },
 });
+
+
 
 
 

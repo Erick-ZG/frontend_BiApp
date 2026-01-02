@@ -1,4 +1,4 @@
-// src/screens/HomeScreen.js
+﻿// src/screens/HomeScreen.js
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -27,19 +27,19 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.mainStack}>
-        <TouchableOpacity
-          style={[styles.block, styles.blockPrimary]}
-          onPress={() => navigation.navigate('PatientsList')}
-          activeOpacity={0.9}
-        >
-          <Text style={styles.blockTitle}>{'Pacientes'}</Text>
-          <Text style={styles.blockText}>
-            {'Registro, historia y evaluaciones cl\u00ednicas'}
-          </Text>
-          <Text style={styles.blockLink}>{'Entrar a pacientes'}</Text>
-        </TouchableOpacity>
-
         <View style={styles.blockRow}>
+          <TouchableOpacity
+            style={[styles.block, styles.blockPrimary, styles.blockHalf]}
+            onPress={() => navigation.navigate('PatientsList')}
+            activeOpacity={0.9}
+          >
+            <Text style={styles.blockTitle}>{'Pacientes'}</Text>
+            <Text style={styles.blockText}>
+              {'Registro, historia y evaluaciones cl\u00ednicas en esta sección'}
+            </Text>
+            <Text style={[styles.blockLink, styles.blockLinkAuto]}>{'Entrar a pacientes'}</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={[styles.block, styles.blockGhost, styles.blockHalf]}
             onPress={() => navigation.navigate('GlobalDashboard')}
@@ -49,25 +49,25 @@ export default function HomeScreen() {
               {'Dashboard global'}
             </Text>
             <Text style={[styles.blockText, styles.blockTextDark]}>
-              {'Indicadores y tendencias del servicio'}
+              {'Indicadores y distribuciones del servicio'}
             </Text>
-            <Text style={[styles.blockLink, styles.blockLinkDark]}>
+            <Text style={[styles.blockLink, styles.blockLinkDark, styles.blockLinkAuto]}>
               {'Ver dashboard'}
             </Text>
           </TouchableOpacity>
+        </View>
 
-          <View style={[styles.block, styles.blockGhost, styles.blockHalf]}>
-            <Text style={[styles.blockTitle, styles.blockTitleDark]}>
-              {'Actividad reciente'}
-            </Text>
-            <Text style={[styles.blockText, styles.blockTextDark]}>
-              {'Resumen semanal'}
-            </Text>
-            <View style={styles.miniChart}>
-              {MINI_BARS.map((h, idx) => (
-                <View key={idx} style={[styles.miniBar, { height: h * 3 }]} />
-              ))}
-            </View>
+        <View style={[styles.block, styles.blockGhost]}>
+          <Text style={[styles.blockTitle, styles.blockTitleDark]}>
+            {'Tip cl\u00ednico'}
+          </Text>
+          <Text style={[styles.blockText, styles.blockTextDark]}>
+            {'Mant\u00e9n la revisi\u00f3n peri\u00f3dica de pacientes con migra\u00f1a cr\u00f3nica.'}
+          </Text>
+          <View style={styles.miniChart}>
+            {MINI_BARS.map((h, idx) => (
+              <View key={idx} style={[styles.miniBar, { height: h * 3 }]} />
+            ))}
           </View>
         </View>
       </View>
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     padding: theme.spacing.md,
     borderRadius: theme.radius.lg,
     borderWidth: 1,
+    justifyContent: 'space-between',
   },
   blockPrimary: {
     backgroundColor: theme.colors.primary,
@@ -157,6 +158,7 @@ const styles = StyleSheet.create({
   },
   blockHalf: {
     flex: 1,
+    minHeight: 150,
   },
   blockTitle: {
     fontSize: 16,
@@ -182,6 +184,9 @@ const styles = StyleSheet.create({
   },
   blockLinkDark: {
     color: theme.colors.primary,
+  },
+  blockLinkAuto: {
+    marginTop: 'auto',
   },
   miniChart: {
     flexDirection: 'row',
@@ -213,4 +218,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
+
+
+
+
+
+
+
+
+
 
