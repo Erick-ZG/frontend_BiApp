@@ -118,4 +118,11 @@ export async function fetchKpiTrends(patientId) {
   return res.data;
 }
 
+// Dashboard global
+export async function fetchDashboard(params = {}) {
+  const res = await api.get('/dashboard', { params });
+  return res.data;
+}
+
 export default api;
+

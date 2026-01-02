@@ -1,23 +1,27 @@
 {
   "expo": {
-    "name": "MigrApp",
+    "name": "ChroMiApp",
     "slug": "MigraineChronicApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/ChroMiApp.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/ChroMiApp.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.erickzg.MigraineChronicApp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
+        "foregroundImage": "./assets/ChroMiApp.jpg",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,

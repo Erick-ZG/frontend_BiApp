@@ -3,12 +3,14 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import HomeScreen from './src/screens/HomeScreen';
 import PatientsListScreen from './src/screens/PatientsListScreen';
 import PatientDetailScreen from './src/screens/PatientDetailScreen';
 import EvaluationFormScreen from './src/screens/EvaluationFormScreen';
 import PatientFormScreen from './src/screens/PatientFormScreen';
 import EvaluationDetailScreen from './src/screens/EvaluationDetailScreen';
 import KpiTrendScreen from './src/screens/KpiTrendScreen';
+import GlobalDashboardScreen from './src/screens/GlobalDashboardScreen';
 import { theme } from './src/theme';
 
 const Stack = createNativeStackNavigator();
@@ -17,7 +19,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="PatientsList"
+        initialRouteName="Home"
         screenOptions={{
           headerStyle: { backgroundColor: theme.colors.card },
           headerTintColor: theme.colors.text,
@@ -26,9 +28,19 @@ export default function App() {
         }}
       >
         <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Inicio' }}
+        />
+        <Stack.Screen
           name="PatientsList"
           component={PatientsListScreen}
           options={{ title: 'Pacientes' }}
+        />
+        <Stack.Screen
+          name="GlobalDashboard"
+          component={GlobalDashboardScreen}
+          options={{ title: 'Dashboard global' }}
         />
         <Stack.Screen
           name="PatientDetail"

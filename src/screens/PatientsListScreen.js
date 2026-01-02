@@ -71,7 +71,7 @@ export default function PatientsListScreen() {
     <View style={styles.hero}>
       <Text style={styles.heroTitle}>Pacientes</Text>
       <Text style={styles.heroSubtitle}>
-        Gestion clinica y seguimiento de evaluaciones
+        {'Gestion clinica y seguimiento de evaluaciones'}
       </Text>
       <View style={styles.heroRow}>
         <View style={styles.statCard}>
@@ -103,7 +103,7 @@ export default function PatientsListScreen() {
         <View style={styles.center}>
           <Text style={styles.emptyTitle}>Sin pacientes registrados</Text>
           <Text style={styles.mutedText}>
-            Crea el primer paciente para iniciar el seguimiento.
+            {'Crea el primer paciente para iniciar el seguimiento.'}
           </Text>
           <TouchableOpacity
             style={[styles.primaryBtn, styles.primaryBtnFull]}
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: theme.radius.md,
     backgroundColor: theme.colors.primary,
+    alignItems: 'center',
   },
   primaryBtnFull: {
     width: '100%',
