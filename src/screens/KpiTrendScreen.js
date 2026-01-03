@@ -37,9 +37,9 @@ const KPI_OPTIONS = [
   },
   {
     key: 'pain_intensity_avg',                  
-    label: 'Intensidad promedio del dolor (VAS 0–10)',
+    label: 'Intensidad promedio del dolor',
     shortLabel: 'Dolor',
-    unit: 'VAS 0–10',
+    unit: 'VAS 0-10',
   },
   {
     key: 'disability_score',

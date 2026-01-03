@@ -321,8 +321,10 @@ export default function EvaluationFormScreen() {
         if (raw === undefined || raw === '' || raw === null) continue;
 
         if (kpi.type === 'integer' || kpi.type === 'float') {
-          const limitMin = kpi.code === 'HEADACHE_DURATION_MONTHS' ? 1 : kpi.min_value;
-          const limitMax = kpi.code === 'HEADACHE_DURATION_MONTHS' ? 240 : kpi.max_value;
+          const isHeadacheDuration = kpi.code === 'HEADACHE_DURATION_MONTHS';
+          const isMidas = kpi.code === 'DISABILITY_MIDAS' || kpi.code === 'DISABILITY_SCORE';
+          const limitMin = isHeadacheDuration ? 1 : isMidas ? 0 : kpi.min_value;
+          const limitMax = isHeadacheDuration ? 240 : isMidas ? 270 : kpi.max_value;
           const numVal = Number(raw);
           if (Number.isNaN(numVal)) {
             errors.push(`"${kpi.name}" debe ser un numero.`);
@@ -534,18 +536,32 @@ export default function EvaluationFormScreen() {
                         {!!desc && <Text style={styles.helper}>{desc}</Text>}
 
                         {(() => {
-                          const displayMin = kpi.code === 'HEADACHE_DURATION_MONTHS' ? 1 : kpi.min_value;
-                          const displayMax = kpi.code === 'HEADACHE_DURATION_MONTHS' ? 240 : kpi.max_value;
+                          const isHeadacheDuration = kpi.code === 'HEADACHE_DURATION_MONTHS';
+                          const isMidas =
+                            kpi.code === 'DISABILITY_MIDAS' || kpi.code === 'DISABILITY_SCORE';
+                          const isPainIntensity =
+                            kpi.code === 'PAIN_INTENSITY_AVG' || kpi.code === 'PAIN_INTENSITY_VAS';
+                          const displayMin = isHeadacheDuration
+                            ? 1
+                            : isMidas
+                              ? 0
+                              : kpi.min_value;
+                          const displayMax = isHeadacheDuration
+                            ? 240
+                            : isMidas
+                              ? 270
+                              : kpi.max_value;
+                          const displayUnit = isPainIntensity ? 'VAS' : kpi.unit;
                           if (displayMin !== null || displayMax !== null) {
                             return (
                               <Text style={styles.helper}>
                                 Rango: {displayMin ?? 'sin min'} - {displayMax ?? 'sin max'}
-                                {kpi.unit ? ` ${kpi.unit}` : ''}
+                                {displayUnit ? ` ${displayUnit}` : ''}
                               </Text>
                             );
                           }
-                          if (kpi.unit) {
-                            return <Text style={styles.helper}>Unidad: {kpi.unit}</Text>;
+                          if (displayUnit) {
+                            return <Text style={styles.helper}>Unidad: {displayUnit}</Text>;
                           }
                           return null;
                         })()}
